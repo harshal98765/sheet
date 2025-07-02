@@ -182,6 +182,11 @@ export default function App() {
     console.log(`${action} button clicked`)
   }
 
+  const toggleFieldVisibility = (fieldKey: string) => {
+    console.log(`Toggling visibility for ${fieldKey}`)
+    setHiddenFields((prev) => (prev.includes(fieldKey) ? prev.filter((f) => f !== fieldKey) : [...prev, fieldKey]))
+  }
+
   const renderCell = (row: TableRow, column: any, rowIndex: number, colIndex: number) => {
     const isSelected = selectedCell?.row === rowIndex && selectedCell?.col === colIndex
     const value = row[column.key as keyof TableRow]
@@ -266,7 +271,10 @@ export default function App() {
 
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => handleButtonClick("Hide fields")}
+                onClick={() => {
+                  handleButtonClick("Hide fields")
+                  toggleFieldVisibility("url") // Example usage
+                }}
                 className="flex items-center space-x-1 px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50"
               >
                 <EyeOff className="w-4 h-4" />
